@@ -21,8 +21,10 @@ BASE := $(shell pwd)
 ARCH := $(shell uname -p)
 
 # GIT Urls
-LINUX_GIT		= https://mirrors.tuna.tsinghua.edu.cn/git/linux.git
-BUSYBOX_GIT		= https://gitee.com/Steve3184/busybox.git
+#LINUX_GIT		= https://mirrors.tuna.tsinghua.edu.cn/git/linux.git
+LINUX_GIT		= https://github.com/torvalds/linux.git
+#BUSYBOX_GIT		= https://gitee.com/Steve3184/busybox.git
+BUSYBOX_GIT		= https://github.com/mirror/busybox.git
 CHECK_UPDATE	= no
 
 .SLIENT: get_toolchain

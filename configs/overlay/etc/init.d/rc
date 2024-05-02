@@ -1,6 +1,6 @@
 #!/bin/hush
-mount -t proc proc /proc
-mount -t sysfs sysfs /sys
+mount -t proc none /proc
+mount -t sysfs none /sys
 mount -t ramfs ramfs /tmp
 mount -t tmpfs tmpfs /dev
 mkdir -p /dev/pts
@@ -10,9 +10,7 @@ mdev -s
 mount -o ro /dev/fd0 /boot
 clear
 cat /etc/welcome
-echo "Kernel:"
-uname -r
-echo "Build:"
-uname -v
+echo "Kernel version:"
+uname -rv
 cd /root
-/bin/hush
+HOME="/root" /bin/hush

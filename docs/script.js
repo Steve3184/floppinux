@@ -19,7 +19,8 @@ window.onload = function() {
             url: "floppinux.img",
             async: true
         },
-        boot_order: parseInt('321', 16)
+        boot_order: parseInt('321', 16),
+        autostart: true
     };
     $("screen_container").onclick = function() {
         let pk = document.getElementsByClassName("phone_keyboard")[0];
@@ -28,17 +29,11 @@ window.onload = function() {
         pk.focus();
     }
     window.emulator = new V86Starter(settings);
-    setTimeout(function() {
-        emulator.run();
-    },750);
 }
 
 function restart() {
     if (emulator) {
         emulator.stop();
         window.emulator = new V86Starter(settings);
-        setTimeout(function() {
-            emulator.run();
-        },100);
     }
 }

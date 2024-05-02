@@ -1,0 +1,5 @@
+::sysinit:/etc/init.d/rc
+::askfirst:sh
+::restart:/sbin/init
+::ctrlaltdel:/bin/busybox -reboot -f
+::shutdown:umount -a -r

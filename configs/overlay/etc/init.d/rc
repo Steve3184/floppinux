@@ -1,0 +1,18 @@
+#!/bin/hush
+mount -t proc proc /proc
+mount -t sysfs sysfs /sys
+mount -t ramfs ramfs /tmp
+mount -t tmpfs tmpfs /dev
+mkdir -p /dev/pts
+mount -t devpts devpts /dev/pts
+echo /sbin/mdev > /proc/sys/kernel/hotplug
+mdev -s
+mount -o ro /dev/fd0 /boot
+clear
+cat /etc/welcome
+echo "Kernel:"
+uname -r
+echo "Build:"
+uname -v
+cd /root
+/bin/hush

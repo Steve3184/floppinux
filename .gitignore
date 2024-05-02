@@ -1,0 +1,9 @@
+.vscode*
+i486-linux-musl-cross*
+busybox/
+linux/
+filesystem/
+bzImage
+rootfs.cpio.xz
+floppinux.img
+disk/

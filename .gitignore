@@ -6,4 +6,5 @@ filesystem/
 bzImage
 rootfs.cpio.xz
 floppinux.img
+!docs/*
 disk/

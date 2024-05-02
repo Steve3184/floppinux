@@ -8,4 +8,5 @@ fi
 echo "Copying new busybox..."
 xzcat box.dat | ( cd / && cpio -idmvu )
 echo "Done."
+echo "TIPS: You need to re-login to this shell to activatie new busybox."
 exit 0

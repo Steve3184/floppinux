@@ -44,11 +44,12 @@ Floppinux is a Linux distribution designed to run on a single floppy disk. It is
    ```
 3. Compile Floppinux using `make`:
    ```shell
-   make all        # Full compilation
-   make rebuild    # Re-compile busybox and rootfs after deleting previously compiled ones
-   make clean      # Delete built bzImage, busybox, and rootfs
-   make reset      # Reset (clear all content)
-   make size       # Get size after compilation of floppinux.img
+   make all                  # Full compilation
+   make rebuild              # Re-compile kernel, busybox and rootfs after deleting previously compiled ones
+   make rebuild_floppy_image # Re-compile floppy image after deleting previously compiled ones
+   make clean                # Delete built bzImage, busybox, and rootfs
+   make reset                # Reset (clear all content)
+   make size                 # Get size after compilation of floppinux
    ```
 4. Test the generated image file (default saved as `floppinux.img`):
    - If you have a floppy disk, write it using dd:

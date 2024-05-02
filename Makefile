@@ -1,5 +1,5 @@
 # Config Variables
-TARGET_ARCH			= x86
+TARGET_ARCH		= x86
 LINUX_DIR		= linux
 CFG_DIR			= $(BASE)/configs
 LINUX_CFG		= $(CFG_DIR)/linux.config
@@ -37,7 +37,7 @@ CHECK_UPDATE	= no
 .PHONY: all rebuild rebuild_floppy_image clean reset size
 
 all: get_sources get_toolchain compile_linux compile_busybox rootfs compile_busybox-full rootfs-overlay floppy_image
-rebuild: clean_filesystem clean_busybox compile_linux compile_busybox rootfs compile_busybox-full rootfs-overlay floppy_image
+rebuild: compile_linux rebuild_floppy_image
 rebuild_floppy_image: clean_filesystem compile_busybox rootfs compile_busybox-full rootfs-overlay floppy_image
 clean: clean_linux clean_busybox clean_filesystem
 

@@ -8,4 +8,5 @@ fi
 echo "Copying kernel modules..."
 xzcat mod.dat | ( cd / && cpio -idmvu )
 echo "Done!"
+echo "TIPS: Using \"modprobe <name>\" to load modules."
 exit 0

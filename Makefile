@@ -43,29 +43,28 @@ clean: clean_linux clean_busybox clean_filesystem
 
 clean_linux:
 	$(MAKE) -C $(LINUX_DIR) clean
-	rm -f $(KERNEL)
+	rm -f bzImage
 
 clean_busybox:
 	$(MAKE) -C $(BUSYBOX_DIR) clean
 
 clean_filesystem:
 	sudo rm -rf $(FS_DIR) $(FS-FULL_DIR)
-	-rm $(FSIMAGE) $(ROOTFS) $(ROOTFS-OVERLAY) $(MODIMAGE)
+	-rm $(FSIMAGE) $(ROOTFS) $(ROOTFS-OVERLAY) $(MODIMAGE) $(BOXIMAGE)
 
 reset: clean_filesystem
-	sudo rm -rf $(LINUX_DIR) $(BUSYBOX_DIR) $(TOOLCHAIN_DIR)
+	-sudo umount $(MOUNT_POINT)
+	sudo rm -rf $(LINUX_DIR) $(BUSYBOX_DIR) $(TOOLCHAIN_DIR) \
+		$(MOUNT_POINT) bzImage $(TOOLCHAIN_NAME)-cross* \
+		$(BASE)/modules
 
 get_sources:
 ifneq ($(wildcard $(LINUX_DIR)),)
-ifeq ($(CHECK_UPDATE),"yes")
-	@echo "Linux directory found, pulling latest changes..."
-	cd $(LINUX_DIR) && git pull
-else
 	@echo "Linux directory found, skipping pull latest changes..."
-endif
 else
 	@echo "Linux directory not found, cloning repo..."
-	git clone --depth=1 $(LINUX_GIT) $(LINUX_DIR)
+#Linux 6.9-rc4
+	git clone --depth=1 -b v6.9-rc4 $(LINUX_GIT) $(LINUX_DIR)
 endif
 ifneq ($(wildcard $(BUSYBOX_DIR)),)
 ifeq ($(CHECK_UPDATE),"yes")

@@ -10,7 +10,7 @@ window.onload = function() {
 
     window.settings = {
         wasm_path: "v86/v86.wasm",
-        memory_size: 32 * 1024 * 1024,
+        memory_size: 48 * 1024 * 1024,
         vga_memory_size: 8 * 1024 * 1024,
         screen_container: $("screen_container"),
         bios: { url: "images/seabios.bin" },

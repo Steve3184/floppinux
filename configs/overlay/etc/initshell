@@ -1,0 +1,11 @@
+#!/bin/hush
+if [ -f "/etc/init.d/02network" ]; then
+    /etc/init.d/02network start
+    ip link set lo up
+fi
+clear
+cat /etc/welcome
+echo "Kernel version:"
+uname -rv
+cd /root
+HOME="/root" /bin/hush

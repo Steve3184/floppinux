@@ -1,0 +1,71 @@
+#!/bin/sh
+#
+# Network interface(s) init script
+#
+# config: /etc/network.conf
+#    /etc/network.d/interface.[devname]
+. /etc/network.conf
+
+if [ "$NETWORKING" != "yes" ]; then
+    echo "Networking is disabled in /etc/network.conf"
+    exit 0
+fi
+
+case "$1" in
+start)
+    for i in /etc/network.d/interface.*
+    do
+        if [ -r "$i" ]; then
+            . $i
+            ip link set $INTERFACE up
+            if [ "$DHCP" = "yes" ]; then
+                echo -n "Starting DHCP for interface $INTERFACE: "
+                udhcpc -b -i "$INTERFACE" \
+                    -p "/var/run/udhcpc.$INTERFACE.pid" \
+                    -s "/etc/udhcpc.script" \
+                    > /dev/null
+            else
+                echo -n "Setting up interface $INTERFACE: "
+                ifconfig "$INTERFACE" "$IPADDRESS" \
+                    netmask "$NETMASK" \
+                    broadcast "$BROADCAST" up
+            fi
+        fi
+    done
+   
+    if [ "$USE_GATEWAY" = "yes" -a -n "$GATEWAY" ]; then
+        echo -n "Setting default route: "
+        route add default gw $GATEWAY
+    fi
+    ;;
+stop)
+    if [ "$USE_GATEWAY" = "yes" -a -n "$GATEWAY" ]; then
+        echo -n "Removing default route: "
+        route del -net 0.0.0.0
+    fi
+
+    for i in /etc/network.d/interface.*
+    do
+        if [ -r "$i" ]; then
+            . $i
+            echo -n "Shutting down interface $INTERFACE: "
+            ifconfig $INTERFACE down
+            if [ "$DHCP" = "yes" ]; then
+                kill `cat "/var/run/udhcpc.$INTERFACE.pid"`
+                sleep 1
+            fi
+        fi
+    done
+    ;;
+restart)
+    $0 stop
+    $0 start
+    ;;
+status)
+    ifconfig
+    route
+    ;;
+*)
+    echo "Usage: $0 {start|stop|restart|status}"
+    exit 1
+esac

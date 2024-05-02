@@ -1,0 +1,11 @@
+#!/bin/sh
+echo "Floppinux loadbusybox v0.1"
+echo ""
+if [ ! -f "box.dat" ]; then
+    echo "ERROR: Not a vaild disk."
+    exit 1
+fi
+echo "Copying new busybox..."
+xzcat box.dat | ( cd / && cpio -idmvu )
+echo "Done."
+exit 0

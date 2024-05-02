@@ -1,0 +1,11 @@
+#!/bin/sh
+echo "Floppinux loadmod v0.1"
+echo ""
+if [ ! -f "mod.dat" ]; then
+    echo "ERROR: Not a vaild disk."
+    exit 1
+fi
+echo "Copying kernel modules..."
+xzcat mod.dat | ( cd / && cpio -idmvu )
+echo "Done!"
+exit 0

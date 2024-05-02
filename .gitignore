@@ -2,9 +2,11 @@
 i486-linux-musl-cross*
 busybox/
 linux/
-filesystem/
+filesystem*/
 bzImage
 rootfs.cpio.xz
-floppinux.img
+overlay.cpio.xz
+floppinux*.img
 !docs/*
+modules/
 disk/
